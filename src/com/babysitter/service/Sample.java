@@ -20,6 +20,7 @@ public class Sample {
         System.out.println(cal.get(Calendar.HOUR_OF_DAY));
         
         System.out.println("testing github commits");
+        System.out.println("deleting");
     }
     
 }
