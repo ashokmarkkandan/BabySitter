@@ -18,6 +18,8 @@ public class Sample {
         Date utilDate = cal.getTime();
         System.out.println(utilDate);
         System.out.println(cal.get(Calendar.HOUR_OF_DAY));
+        
+        System.out.println("testing github commits");
     }
     
 }
