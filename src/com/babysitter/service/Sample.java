@@ -21,6 +21,7 @@ public class Sample {
         
         System.out.println("testing github commits");
         System.out.println("deleting");
+        System.out.println("deleting");
     }
     
 }
