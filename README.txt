@@ -1,4 +1,4 @@
-This is a project created to satisfy the following requirments with TDD methodology using Java programming language.
+This is a sample project created to satisfy the following requirments with TDD methodology using Java programming language.
 
 
 Babysitter Kata
