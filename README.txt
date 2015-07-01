@@ -1,3 +1,6 @@
+This is a project created to satisfy the following requirments with TDD methodology using Java programming language.
+
+
 Babysitter Kata
  
 Background
