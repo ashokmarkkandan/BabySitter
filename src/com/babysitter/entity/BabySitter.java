@@ -10,6 +10,16 @@ public class BabySitter {
     
     public Date bedTime;
     
+    public long totalHours;
+    
+    public long getTotalHours() {
+        return totalHours;
+    }
+    
+    public void setTotalHours(long totalHours) {
+        this.totalHours = totalHours;
+    }
+    
     public Date getBedTime() {
         return bedTime;
     }
