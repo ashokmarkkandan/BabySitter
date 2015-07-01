@@ -1,8 +1,10 @@
 package com.babysitter;
 
-import java.util.Calendar;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,27 +20,33 @@ public class TestBabySitter {
     public void setUp() {
         babySitter = new BabySitter();
         impl = new BabySitterImpl();
+        try {
+            Date startTime = intializeDate("06/30/2015 17:00:00");
+            Date endTime = intializeDate("07/01/2015 03:00:00");
+            Date bedTime = intializeDate("07/01/2015 01:00:00");
+            
+            babySitter.setStartTime(startTime);
+            babySitter.setEndTime(endTime);
+            babySitter.setBedTime(bedTime);
+        } catch (ParseException pe) {
+            pe.printStackTrace();
+        }
+        
     }
     
     @Test
-    public void whenTheStartTimeIsOverFivePM() {
-        
-        Date startTime = initializeTimings(2015, 05, 15, 17, 00, 00);
-        Date endTime = initializeTimings(2015, 05, 16, 04, 00, 00);
-        Date bedTime = initializeTimings(2015, 05, 15, 20, 00, 00);
-        babySitter.setStartTime(startTime);
-        
+    public void whenValidDateRangeIsChecked() {
+        Assert.assertEquals(true, impl.isValid(babySitter));
     }
     
     @Test
-    public void whenTheEndTimeIsBeforeFourAm() {
-        
+    public void whenProcessingPayIsChecked() {
+        int amount = impl.processPay(babySitter);
+        Assert.assertEquals(amount > 0, true);
     }
     
-    private Date initializeTimings(int year, int month, int date, int hours, int mins, int seconds) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(0);
-        cal.set(year, month, date, hours, mins, seconds);
-        return cal.getTime();
+    private Date intializeDate(String dateString) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        return format.parse(dateString);
     }
 }
