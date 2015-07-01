@@ -23,10 +23,9 @@ public class BabySitterImpl {
     public boolean isValid(BabySitter babySitter) {
         boolean isValid = false;
         
-        if (babySitter.getStartTime() != null && babySitter.getEndTime() != null && babySitter.getBedTime() != null) {
+        if (babySitter.getStartTime() != null && babySitter.getEndTime() != null) { // && babySitter.getBedTime() != null) {
             long diff = babySitter.getEndTime().getTime() - babySitter.getStartTime().getTime();
             long diffHours = diff / (60 * 60 * 1000) % 24;
-            babySitter.setTotalHours(diffHours);
             long diffDays = diff / (24 * 60 * 60 * 1000);
             if (diffDays >= 1) {
                 System.out.println("Invalid Date Range, should be one day difference - day  difference: " + diffDays);
@@ -34,6 +33,20 @@ public class BabySitterImpl {
             }
             if (diffHours > 11 || diffHours < 0) {
                 System.out.println("Invalid start Time,end time - hours difference: " + diffHours);
+                return false;
+            }
+            
+            Calendar calcDate = new GregorianCalendar();
+            calcDate.setTime(babySitter.getStartTime());
+            int startHour = calcDate.get(Calendar.HOUR_OF_DAY);
+            if (startHour < 17) {
+                System.out.println("start time cannot be before 5pm");
+                return false;
+            }
+            calcDate.setTime(babySitter.getEndTime());
+            int endHour = calcDate.get(Calendar.HOUR_OF_DAY);
+            if (endHour > 4 && endHour < 17) {
+                System.out.println("End time cannot be after 4am");
                 return false;
             }
             isValid = true;
@@ -90,12 +103,14 @@ public class BabySitterImpl {
      */
     public long calculateSleepHours(BabySitter babySitter) {
         long sleepHours = 0;
-        if (babySitter.getBedTime().after(babySitter.getEndTime())) {
-            System.out.println(" Wrong data: bedtime after endtime");
-            return sleepHours;
+        if (babySitter.getBedTime() != null) {
+            if (babySitter.getBedTime().after(babySitter.getEndTime())) {
+                System.out.println(" Wrong data: bedtime after endtime");
+                return sleepHours;
+            }
+            long diff = babySitter.getEndTime().getTime() - babySitter.getBedTime().getTime();
+            sleepHours = diff / (60 * 60 * 1000) % 24;
         }
-        long diff = babySitter.getEndTime().getTime() - babySitter.getBedTime().getTime();
-        sleepHours = diff / (60 * 60 * 1000) % 24;
         return sleepHours;
     }
     
@@ -115,8 +130,10 @@ public class BabySitterImpl {
         int endHour = calcDate.get(Calendar.HOUR_OF_DAY);
         calcDate.setTime(babySitter.getStartTime());
         int startHour = calcDate.get(Calendar.HOUR_OF_DAY);
-        
-        if (startHour <= 4) {
+        if (endHour > 4) {
+            return 0;
+        }
+        else if (startHour <= 4) {
             midNightHours = endHour - startHour;
         } else {
             midNightHours = endHour;
