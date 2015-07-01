@@ -22,8 +22,8 @@ public class TestBabySitter {
         impl = new BabySitterImpl();
         
         Date startTime = intializeDate("06/30/2015 17:00:00");
-        Date endTime = intializeDate("07/01/2015 03:00:00");
         Date bedTime = intializeDate("07/01/2015 01:00:00");
+        Date endTime = intializeDate("07/01/2015 03:00:00");
         
         babySitter.setStartTime(startTime);
         babySitter.setEndTime(endTime);
@@ -38,8 +38,8 @@ public class TestBabySitter {
     
     @Test
     public void whenProcessingPayIsChecked() {
-        int amount = impl.processPay(babySitter);
-        Assert.assertEquals(amount > 0, true);
+        long amount = impl.processPay(babySitter);
+        Assert.assertEquals(amount == 132, true);
         
     }
     
@@ -57,6 +57,12 @@ public class TestBabySitter {
     public void WhenProcessingMidNightHours() {
         long midNightHours = impl.calculatePostMidnightHours(babySitter);
         Assert.assertEquals(midNightHours == 3, true);
+    }
+    
+    @Test
+    public void WhenProcessingTotalHours() {
+        long totalHours = impl.calculateTotalHours(babySitter);
+        Assert.assertEquals(totalHours == 10, true);
     }
     
     private Date intializeDate(String dateString) {
