@@ -1,25 +1,37 @@
 package com.babysitter.entity;
 
+import java.util.Date;
+
 public class BabySitter {
     
-    public int startTime;
+    public Date startTime;
     
-    public int endTime;
+    public Date endTime;
     
-    public int getEndTime() {
-        return endTime;
+    public Date bedTime;
+    
+    public Date getBedTime() {
+        return bedTime;
     }
     
-    public void setEndTime(int endTime) {
-        this.endTime = endTime;
+    public void setBedTime(Date bedTime) {
+        this.bedTime = bedTime;
     }
     
-    public int getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
     
-    public void setStartTime(int startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
+    }
+    
+    public Date getEndTime() {
+        return endTime;
+    }
+    
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
     
 }
