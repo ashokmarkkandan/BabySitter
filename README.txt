@@ -1,5 +1,7 @@
 This is a sample project created to satisfy the following requirments with TDD methodology using Java programming language.
 
+Note: if you are trying pull the files use "data" instead of origin in your git command.
+
 
 Babysitter Kata
  
